@@ -327,6 +327,17 @@ MonoBehaviour:
   - {fileID: 7023868596942658551, guid: defedf43bd37a92418af7829b7e478c4, type: 3}
   - {fileID: 7055095637172273878, guid: 97caa82091828de43ae4ec2f79139467, type: 3}
   - {fileID: 3620532571634420185, guid: 60d6bb3db920c274e9e791a2dfbe2545, type: 3}
+  - {fileID: 7023868596942658551, guid: defedf43bd37a92418af7829b7e478c4, type: 3}
+  - {fileID: 7055095637172273878, guid: 97caa82091828de43ae4ec2f79139467, type: 3}
+  - {fileID: 3620532571634420185, guid: 60d6bb3db920c274e9e791a2dfbe2545, type: 3}
+  - {fileID: 7023868596942658551, guid: defedf43bd37a92418af7829b7e478c4, type: 3}
+  - {fileID: 7055095637172273878, guid: 97caa82091828de43ae4ec2f79139467, type: 3}
+  - {fileID: 3620532571634420185, guid: 60d6bb3db920c274e9e791a2dfbe2545, type: 3}
+  - {fileID: 7023868596942658551, guid: defedf43bd37a92418af7829b7e478c4, type: 3}
+  - {fileID: 7055095637172273878, guid: 97caa82091828de43ae4ec2f79139467, type: 3}
+  - {fileID: 3620532571634420185, guid: 60d6bb3db920c274e9e791a2dfbe2545, type: 3}
+  currentPlaceablePrefab: 0
+  currentPrefabIndex: -1
   camera: {fileID: 209299033}
   buildOnLayer:
     serializedVersion: 2

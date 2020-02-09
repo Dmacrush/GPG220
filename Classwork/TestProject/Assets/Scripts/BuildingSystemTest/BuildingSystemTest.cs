@@ -6,11 +6,12 @@ namespace BuildingSystemTest
     public class BuildingSystemTest : MonoBehaviour
     {
         [SerializeField] private GameObject[] placeableObjectPrefabs;
+        [SerializeField] private int currentPlaceablePrefab;
 
         private GameObject currentPlaceableObject;
 
         private float mouseWheelRotation;
-        private int currentPrefabIndex = -1;
+        [SerializeField, Range(1, 9)] private int currentPrefabIndex = 1;
 
         public Camera camera;
 
@@ -24,27 +25,32 @@ namespace BuildingSystemTest
 
         [SerializeField] private Material cantPlaceBuildingMat;
         private Material defaultMat;
+
         private void Update()
         {
             CanBuildingSpawn();
             HandleNewObject();
+            HandleNewObjectUI();
             if (currentPlaceableObject != null)
             {
                 MoveCurrentObjectToMouse();
                 RotateFromMouseWheel();
                 ReleaseIfClicked();
-                //checkRadius = currentPlaceableObject.transform.localScale;
             }
 
-            
-        }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                currentPlaceablePrefab += 1;
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                currentPlaceablePrefab -= 1;
+            }        }
 
         private void HandleNewObject()
         {
-
             for (int i = 0; i < placeableObjectPrefabs.Length; i++)
             {
-
                 //can have around 9 buildings for testing since 
                 if (Input.GetKeyDown(KeyCode.Alpha0 + 1 + i))
                 {
@@ -62,7 +68,6 @@ namespace BuildingSystemTest
 
                         if (canSpawn)
                         {
-
                             currentPlaceableObject = Instantiate(placeableObjectPrefabs[i]);
                             defaultMat = currentPlaceableObject.GetComponent<MeshRenderer>().sharedMaterial;
                         }
@@ -70,15 +75,14 @@ namespace BuildingSystemTest
                         currentPrefabIndex = i;
                     }
 
-
                     break;
                 }
-
 
                 if (!canSpawn && currentPlaceableObject != null)
                 {
                     //Destroy(currentPlaceableObject);
                     currentPlaceableObject.GetComponent<MeshRenderer>().sharedMaterial = cantPlaceBuildingMat;
+                    Debug.Log("Can't Build Here");
                     break;
                 }
 
@@ -87,13 +91,11 @@ namespace BuildingSystemTest
                     currentPlaceableObject.GetComponent<MeshRenderer>().sharedMaterial = defaultMat;
                 }
             }
-
-
         }
 
-        private bool PressedKeyOfCurrentPrefab(int i)
+        private bool PressedKeyOfCurrentPrefab(int a)
         {
-            return currentPlaceableObject != null && currentPrefabIndex == i;
+            return currentPlaceableObject != null && currentPrefabIndex == a;
         }
 
         private void MoveCurrentObjectToMouse()
@@ -104,11 +106,10 @@ namespace BuildingSystemTest
 
             if (Physics.Raycast(ray, out hitinfo, buildOnLayer))
             {
-                currentPlaceableObject.transform.position = new Vector3(hitinfo.point.x, hitinfo.point.y + 0.5f, hitinfo.point.z);
+                currentPlaceableObject.transform.position =
+                    new Vector3(hitinfo.point.x, hitinfo.point.y + 0.5f, hitinfo.point.z);
                 currentPlaceableObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitinfo.normal);
             }
-            
-            
         }
 
         private void CanBuildingSpawn()
@@ -123,7 +124,7 @@ namespace BuildingSystemTest
                 //change to box if wishing to use vector3's
                 canSpawnColliders = Physics.OverlapSphere(canSpawnRaycast.point, checkRadius);
             }
-            
+
             foreach (Collider col in canSpawnColliders)
             {
                 canSpawn = !col.CompareTag("Building");
@@ -143,11 +144,12 @@ namespace BuildingSystemTest
                 if (!canSpawn)
                 {
                     Destroy(currentPlaceableObject);
+                    Debug.Log("Can't Build Here");
                 }
+
                 currentPlaceableObject.GetComponent<Collider>().enabled = true;
                 currentPlaceableObject = null;
             }
-            
         }
     }
 }
