@@ -30,7 +30,6 @@ namespace BuildingSystemTest
         {
             CanBuildingSpawn();
             HandleNewObject();
-            HandleNewObjectUI();
             if (currentPlaceableObject != null)
             {
                 MoveCurrentObjectToMouse();
@@ -92,6 +91,8 @@ namespace BuildingSystemTest
                 }
             }
         }
+        
+        
 
         private bool PressedKeyOfCurrentPrefab(int a)
         {
