@@ -6,12 +6,12 @@ namespace BuildingSystemTest
     public class BuildingSystemTest : MonoBehaviour
     {
         [SerializeField] private GameObject[] placeableObjectPrefabs;
-        [SerializeField] private int currentPlaceablePrefab;
+        private int currentPlaceablePrefab;
 
         private GameObject currentPlaceableObject;
 
         private float mouseWheelRotation;
-        [SerializeField, Range(1, 9)] private int currentPrefabIndex = 1;
+        private int currentPrefabIndex = 1;
 
         public Camera camera;
 
@@ -36,15 +36,7 @@ namespace BuildingSystemTest
                 RotateFromMouseWheel();
                 ReleaseIfClicked();
             }
-
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                currentPlaceablePrefab += 1;
-            }
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                currentPlaceablePrefab -= 1;
-            }        }
+        }
 
         private void HandleNewObject()
         {
