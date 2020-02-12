@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BuildingSystemTest
 {
     public class PlaceableBuilding : MonoBehaviour
     {
-        [HideInInspector]
-        public List<Collider> colliders = new List<Collider>();
+        [HideInInspector] public List<Collider> colliders = new List<Collider>();
 
         private bool isSelected;
+
+        public GameObject button;
 
         private void OnGUI()
         {
             if (isSelected)
             {
-                GUI.Button(new Rect(100, 200, 100, 30), name);
+                GUI.Box(new Rect(Screen.width / 6, Screen.height / 15, 150, 90), name);
                 
-                if (GUI.Button(new Rect(100, 250, 100, 30), "Do Thing"))
+                if (GUI.Button(new Rect(Screen.width / 5.5f, Screen.height / 9 , 100, 30), "Do Thing"))
                 {
+                    
                     TestFunction();
                 }
             }
+            
         }
 
         private void OnTriggerEnter(Collider other)
@@ -31,6 +35,7 @@ namespace BuildingSystemTest
                 colliders.Add(other);
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Building"))
