@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Node : MonoBehaviour
+namespace Pathfinding.New
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Node
     {
-        
-    }
+        public bool isWalkable;
+        public Vector3 worldPosition;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public Node(bool walkable, Vector3 worldPos)
+        {
+            isWalkable = walkable;
+            worldPosition = worldPos;
+        }
+
     }
 }
