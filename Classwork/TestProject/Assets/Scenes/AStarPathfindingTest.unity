@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 544478564}
   - component: {fileID: 544478563}
   - component: {fileID: 544478565}
+  - component: {fileID: 544478566}
   m_Layer: 0
   m_Name: Pathfinder
   m_TagString: Untagged
@@ -612,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ed5fa9ac0ad8c499e7b4d0d07ada2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlyDisplayPathGizmos: 1
+  displayGridGizmos: 0
   unWalkableMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -644,8 +645,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794d02c6c69897842867e21b7be027fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seeker: {fileID: 833161357}
-  target: {fileID: 1884078831}
+--- !u!114 &544478566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544478562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92822133471f57545aa622fefda47e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &578409346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +1028,7 @@ GameObject:
   - component: {fileID: 833161360}
   - component: {fileID: 833161359}
   - component: {fileID: 833161358}
+  - component: {fileID: 833161361}
   m_Layer: 0
   m_Name: Seeker
   m_TagString: Untagged
@@ -1098,6 +1110,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833161356}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &833161361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833161356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184cdc2e4a8b4284898d4582eb916398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1884078831}
 --- !u!1 &963452788
 GameObject:
   m_ObjectHideFlags: 0
