@@ -35,7 +35,6 @@ namespace Pathfinding.New
             if (startNode.isWalkable && targetNode.isWalkable)
             {
                 Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
-                // List<Node> openSet = new List<Node>();
                 HashSet<Node> closeSet = new HashSet<Node>();
 
                 openSet.Add(startNode);
@@ -43,16 +42,6 @@ namespace Pathfinding.New
                 while (openSet.Count > 0)
                 {
                     Node currentNode = openSet.RemoveFirst();
-                    //Node currentNode = openSet[0];
-                    // for (int i = 0; i < openSet.Count; i++)
-                    // {
-                    //     if(openSet[i].fCost < currentNode.fCost || openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost)
-                    //     {
-                    //         currentNode = openSet[i];
-                    //     }
-                    // }
-                    //
-                    // openSet.Remove(currentNode);
                     closeSet.Add(currentNode);
 
                     if (currentNode == targetNode)
