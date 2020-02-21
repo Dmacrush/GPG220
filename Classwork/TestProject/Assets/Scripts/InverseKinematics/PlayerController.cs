@@ -11,9 +11,6 @@ namespace InverseKinematics
     {
         #region Variables
 
-        
-
-        
         [Header("Movement")] 
         public float InputX;
         public float InputZ;
