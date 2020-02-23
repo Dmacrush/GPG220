@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Timeline;
 using Random = UnityEngine.Random;
 
 namespace Pathfinding.Boids
@@ -13,7 +15,10 @@ namespace Pathfinding.Boids
         public FlockBehaviour behaviour;
 
         [Range(10, 500)] public int startingCount = 100;
-        private const float AgentDensity = 0.8f;
+        
+        //change to determine agent spawn density
+        //lower is closer
+        private const float AgentDensity = 0.08f;
 
         [Header("Agent Stats")] 
         [Range(1f, 100f)] 
@@ -21,7 +26,7 @@ namespace Pathfinding.Boids
         [Range(1f, 100f)] 
         public float maxSpeed = 5f;
         [Range(1f, 10f)] 
-        public float neightbourRadius;
+        public float neightbourRadius = 3f;
         [Range(0f, 1f)] 
         public float avoidanceRadiusMultiplier = 0.5f;
 
@@ -33,7 +38,6 @@ namespace Pathfinding.Boids
         {
             get { return squareAvoidanceRadius; }
         }
-
         private void Start()
         {
             squareMaxSpeed = maxSpeed * maxSpeed;
@@ -49,5 +53,38 @@ namespace Pathfinding.Boids
                 agents.Add(newAgent);
             }
         }
+
+        private void Update()
+        {
+            //TODO : Move to seperate function later    
+            foreach (FlockAgent agent in agents)
+            {
+                List<Transform> context = GetNearbyObjects(agent);
+                Vector3 move = behaviour.CalculateMove(agent, context, this);
+                move *= driveFactor;
+                if (move.sqrMagnitude > squareMaxSpeed)
+                {
+                    move = move.normalized * maxSpeed;
+                }
+                agent.Move(move);
+            }
+        }
+
+        private List<Transform> GetNearbyObjects(FlockAgent agent)
+        {
+            List<Transform> context = new List<Transform>();
+            Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neightbourRadius);
+            foreach (Collider c in contextColliders)
+            {
+                if (c != agent.AgentCollider)
+                {
+                    context.Add(c.transform);
+                }
+            }
+
+            return context;
+        }
+
+
     }
 }
