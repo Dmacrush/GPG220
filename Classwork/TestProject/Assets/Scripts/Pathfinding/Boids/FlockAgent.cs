@@ -10,10 +10,7 @@ namespace Pathfinding.Boids
 
         public Collider AgentCollider
         {
-            get
-            {
-                return agentCollider;
-            }
+            get { return agentCollider; }
         }
 
         private void Start()
@@ -25,6 +22,10 @@ namespace Pathfinding.Boids
         {
             transform.forward = velocity;
             transform.position += velocity * Time.deltaTime;
+            // if (velocity != Vector3.zero)
+            // {
+            //     transform.Rotate(velocity);
+            // }
         }
     }
 }

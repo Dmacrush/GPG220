@@ -18,7 +18,7 @@ namespace Pathfinding.Boids
         
         //change to determine agent spawn density
         //lower is closer
-        private const float AgentDensity = 0.08f;
+        private const float AgentDensity = 0.8f;
 
         [Header("Agent Stats")] 
         [Range(1f, 100f)] 
