@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Pathfinding.Boids.Behaviour_Scripts
 {
-    [CreateAssetMenu(menuName = "Flock/Behaviour/Steered    Cohesion")]
-    public class SteeredCohesionBehaviour : FlockBehaviour
+    [CreateAssetMenu(menuName = "Flock/Behaviour/Steered Cohesion")]
+    public class SteeredCohesionBehaviour : FilteredFlockBehaviour
     {
         private Vector3 currentVelocity;
         public float agentSmoothTime = 0.5f;
@@ -21,7 +21,8 @@ namespace Pathfinding.Boids.Behaviour_Scripts
 
             //add all points together and average
             Vector3 cohesionMove = Vector3.zero;
-            foreach (Transform item in context)
+            List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent,context);
+            foreach (Transform item in filteredContext)
             {
                 cohesionMove += item.position;
             }

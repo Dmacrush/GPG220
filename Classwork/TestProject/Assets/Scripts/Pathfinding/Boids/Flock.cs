@@ -50,6 +50,7 @@ namespace Pathfinding.Boids
                 FlockAgent newAgent = Instantiate(agentPrefab, new Vector3(newPos.x,transform.position.y + 1,newPos.z),
                     Quaternion.Euler(Vector3.up * Random.Range(0f, 360)), transform);
                 newAgent.name = "Agent " + i;
+                newAgent.Initialize(this);
                 agents.Add(newAgent);
             }
         }
