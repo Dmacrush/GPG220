@@ -59,7 +59,7 @@ namespace Pathfinding.New
                             continue;
                         }
 
-                        int newMovementConstToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+                        int newMovementConstToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour) + neighbour.movementPenalty;
                         if (newMovementConstToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
                         {
                             neighbour.gCost = newMovementConstToNeighbour;
@@ -69,6 +69,10 @@ namespace Pathfinding.New
                             if (!openSet.Contains(neighbour))
                             {
                                 openSet.Add(neighbour);
+                            }
+                            else
+                            {
+                                openSet.UpdateItem(neighbour);
                             }
                         }
                     }

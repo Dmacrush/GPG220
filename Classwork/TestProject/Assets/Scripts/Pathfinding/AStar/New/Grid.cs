@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Pathfinding.New
@@ -10,6 +11,9 @@ namespace Pathfinding.New
         public Vector2 gridWorldSize;
         public float nodeRadius;
         private Node[,] grid;
+        public TerrainType[] walkableRegions;
+        private LayerMask walkableMask;
+        Dictionary<int,int> walkableRegionsDictionary = new Dictionary<int, int>();
 
         private float nodeDiameter;
         private int gridSizeX, gridSizeY;
@@ -19,6 +23,13 @@ namespace Pathfinding.New
             nodeDiameter = nodeRadius * 2;
             gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
             gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+            foreach (TerrainType region in walkableRegions)
+            {
+                walkableMask.value |= region.terrainMask.value;
+                walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value,2),region.terrainPenalty);
+            }
+            
             CreateGrid();
         }
 
@@ -41,7 +52,22 @@ namespace Pathfinding.New
                     Vector3 worldPoint = worldBottemLeft + Vector3.right * (x * nodeDiameter + nodeRadius) +
                                          Vector3.forward * (y * nodeDiameter + nodeRadius);
                     bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unWalkableMask));
-                    grid[x, y] = new Node(walkable, worldPoint, x, y);
+
+                    int movePenalty = 0;
+                    
+                    //check for movement penalty
+                    if (walkable)
+                    {
+                        //ensure that this ray right below this is lower than the maxDistance for the physics raycast under it
+                        Ray ray = new Ray(worldPoint + Vector3.up * 50, Vector3.down);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit, 100, walkableMask))
+                        {
+                            walkableRegionsDictionary.TryGetValue(hit.collider.gameObject.layer, out movePenalty);
+                        }
+                    }
+                    
+                    grid[x, y] = new Node(walkable, worldPoint, x, y,movePenalty);
                 }
             }
         }
@@ -98,5 +124,14 @@ namespace Pathfinding.New
                 }
             }
         }
+        
+        
+    }
+
+    [Serializable]
+    public class TerrainType
+    {
+        public LayerMask terrainMask;
+        public int terrainPenalty;
     }
 }
