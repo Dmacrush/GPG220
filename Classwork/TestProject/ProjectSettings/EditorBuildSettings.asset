@@ -8,4 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SavingJson.unity
     guid: b331c4ca76bba02468460f16115f9370
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: dbbbed9cd5f94b74cb12eefd3087bddd,
+      type: 2}
