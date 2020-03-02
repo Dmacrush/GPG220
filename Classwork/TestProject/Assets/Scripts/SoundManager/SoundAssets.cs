@@ -6,6 +6,12 @@ namespace SoundManager
     public class SoundAssets : MonoBehaviour
     {
         private static SoundAssets intance;
+        private SoundAudioClip soundAudioClip;
+
+        public void Awake()
+        {
+            soundAudioClip = new SoundAudioClip();
+        }
 
         public static SoundAssets i
         {
@@ -13,7 +19,7 @@ namespace SoundManager
             {
                 if (intance == null)
                 {
-                    intance = Instantiate(Resources.Load<SoundAssets>("SoundAssets"));
+                    intance = (Instantiate(Resources.Load("SoundAssets")) as GameObject)?.GetComponent<SoundAssets>();
                 }
 
                 return intance;
@@ -27,14 +33,14 @@ namespace SoundManager
         {
             public SoundManager.Sound sound;
             public AudioClip audioClip;
-            public static float soundDelay;
+            public float soundDelay;
             
         }
         
         //TODO fix this
         public bool CanPlaySound(SoundManager.Sound sound)
         {
-            if (SoundAudioClip.soundDelay < Time.time)
+            if (soundAudioClip.soundDelay < Time.time)
             {
                 return true;
             }
