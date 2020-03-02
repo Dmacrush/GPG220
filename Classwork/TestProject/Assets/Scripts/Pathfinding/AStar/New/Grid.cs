@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pathfinding.New;
 using UnityEngine;
 
-namespace Pathfinding.New
+namespace Pathfinding.AStar.New
 {
     public class Grid : MonoBehaviour
     {
+        [Header("Pathfinding Settings")]
         public bool displayGridGizmos;
         public LayerMask unWalkableMask;
         public Vector2 gridWorldSize;
         public float nodeRadius;
         private Node[,] grid;
+        [Range(2, 5)] 
+        public int blurPenaltyMultiplier;
         public TerrainType[] walkableRegions;
         private LayerMask walkableMask;
         Dictionary<int,int> walkableRegionsDictionary = new Dictionary<int, int>();
@@ -18,6 +22,7 @@ namespace Pathfinding.New
         private float nodeDiameter;
         private int gridSizeX, gridSizeY;
 
+        
         private void Awake()
         {
             nodeDiameter = nodeRadius * 2;
@@ -69,6 +74,56 @@ namespace Pathfinding.New
                     
                     grid[x, y] = new Node(walkable, worldPoint, x, y,movePenalty);
                 }
+            }
+            
+            BlurPenaltyMap(blurPenaltyMultiplier);
+        }
+
+        void BlurPenaltyMap(int blurSize)
+        {
+            int kernalSize = blurSize * 2 + 1;
+            int kernalExtents = kernalSize - 1 / 2;
+            
+
+            int[,] penaltiesHorizontalPass = new int[gridSizeX,gridSizeY];
+            int[,] penaltiesVerticalPass = new int[gridSizeX,gridSizeY];
+
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                for (int x = -kernalExtents; x <= kernalExtents; x++)
+                {
+                    int sampleX = Mathf.Clamp(x, 0, kernalExtents);
+                    penaltiesHorizontalPass[0, y] += grid[sampleX, y].movementPenalty;
+                }
+
+                for (int x = 1; x < gridSizeX; x++)
+                {
+                    int removeIndex =  Mathf.Clamp(x - kernalExtents - 1,0,gridSizeX);
+                    int addIndex = Mathf.Clamp(x + kernalExtents, 0, gridSizeX - 1);
+
+                    penaltiesHorizontalPass[x, y] = penaltiesHorizontalPass[x - 1, y] - grid[removeIndex, y].movementPenalty + grid[addIndex, y].movementPenalty;
+                }
+            }
+            
+            for (int x = 0; x < gridSizeX; x++)
+            {
+                for (int y = -kernalExtents; y <= kernalExtents; y++)
+                {
+                    int sampleY = Mathf.Clamp(y, 0, kernalExtents);
+                    penaltiesVerticalPass[x, 0] += penaltiesHorizontalPass[x, sampleY];
+                }
+
+                for (int y = 1; y < gridSizeY; y++)
+                {
+                    int removeIndex =  Mathf.Clamp(y - kernalExtents - 1,0,gridSizeY);
+                    int addIndex = Mathf.Clamp(y + kernalExtents, 0, gridSizeY - 1);
+
+                    penaltiesVerticalPass[x, y] = penaltiesVerticalPass[x , y -1] - penaltiesHorizontalPass[x,removeIndex] + penaltiesHorizontalPass[x,addIndex];
+                    int blurredPenalty =
+                        Mathf.RoundToInt((float) penaltiesVerticalPass[x, y] / (kernalExtents * kernalExtents));
+                    grid[x, y].movementPenalty = blurredPenalty;
+                }
+                
             }
         }
 
