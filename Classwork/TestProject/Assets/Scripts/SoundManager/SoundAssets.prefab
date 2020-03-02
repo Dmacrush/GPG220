@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2147835104188289814}
   - component: {fileID: 2147835104188289815}
   m_Layer: 0
-  m_Name: SoundManager
+  m_Name: SoundAssets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,4 +46,5 @@ MonoBehaviour:
   soundAudioClipArray:
   - sound: 3
     audioClip: {fileID: 8300000, guid: c50cf4d535165e04d9f6471355af7fff, type: 3}
-    soundDelay: 0
+    soundDelay: 3
+    volume: 100

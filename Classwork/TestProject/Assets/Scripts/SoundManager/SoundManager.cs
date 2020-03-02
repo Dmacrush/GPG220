@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 namespace SoundManager
@@ -14,42 +15,48 @@ namespace SoundManager
             moving,
         }
 
-        
-        //simply call SoundManager.Play sound to play desired sound
-        public static void PlaySound(Sound sound)
-        {
-            if (SoundAssets.i.CanPlaySound(sound))
-            {
-                GameObject soundGameobject = new GameObject("Sound");
-                AudioSource audioSource = soundGameobject.AddComponent<AudioSource>();
-                audioSource.PlayOneShot(GetAudioClip(sound));
-            }
-        }
-        
+
         //use this version of the function to spawn in 3D space
         public static void PlaySound(Sound sound, Vector3 position)
         {
-            if (SoundAssets.i.CanPlaySound(sound))
+            if (SoundAssets.instance.CanPlaySound(sound))
             {
-                GameObject soundGameobject = new GameObject("Sound");
-                soundGameobject.transform.position = position;
-                AudioSource audioSource = soundGameobject.AddComponent<AudioSource>();
-                audioSource.clip = GetAudioClip(sound);
+                GameObject soundGameObject = new GameObject("Sound");
+                soundGameObject.transform.position = position;
+                AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+                audioSource.clip = GetAudioClip(sound, audioSource);
                 audioSource.Play();
+                Object.Destroy(soundGameObject, audioSource.clip.length);
             }
         }
 
-        private static AudioClip GetAudioClip(Sound sound)
+        //simply call SoundManager.Play sound to play desired sound
+        public static void PlaySound(Sound sound)
         {
-            foreach (SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.i.soundAudioClipArray)
+            if (SoundAssets.instance.CanPlaySound(sound))
+            {
+                GameObject soundGameObject = new GameObject("Sound");
+                AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+                audioSource.PlayOneShot(GetAudioClip(sound, audioSource));
+                Object.Destroy(soundGameObject, audioSource.clip.length);
+            }
+        }
+
+
+        private static AudioClip GetAudioClip(Sound sound, AudioSource audioSource)
+        {
+            foreach (SoundAssets.SoundAudioClip soundAudioClip in SoundAssets.instance.soundAudioClipArray)
             {
                 if (soundAudioClip.sound == sound)
                 {
+                    audioSource.volume = soundAudioClip.volume;
+
                     return soundAudioClip.audioClip;
                 }
             }
 
-            Debug.LogError("Sound " + sound + " not found");
+            Debug.LogError("Sound " + sound + " not found!");
+            Object.Destroy(audioSource);
             return null;
         }
     }

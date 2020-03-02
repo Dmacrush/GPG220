@@ -5,38 +5,35 @@ namespace SoundManager
 {
     public class SoundAssets : MonoBehaviour
     {
-        private static SoundAssets intance;
+        public static SoundAssets instance = null;
         private SoundAudioClip soundAudioClip;
 
         public void Awake()
         {
             soundAudioClip = new SoundAudioClip();
-        }
-
-        public static SoundAssets i
-        {
-            get
+            if (instance == null)
             {
-                if (intance == null)
-                {
-                    intance = (Instantiate(Resources.Load("SoundAssets")) as GameObject)?.GetComponent<SoundAssets>();
-                }
-
-                return intance;
+                instance = this;
+            }
+            else if (instance != null)
+            {
+                Destroy(gameObject);
             }
         }
 
+        // public static SoundAssets i { get; }
+
         public SoundAudioClip[] soundAudioClipArray;
-        
+
         [Serializable]
         public class SoundAudioClip
         {
             public SoundManager.Sound sound;
             public AudioClip audioClip;
             public float soundDelay;
-            
+            [Range(0, 100)] public float volume;
         }
-        
+
         //TODO fix this
         public bool CanPlaySound(SoundManager.Sound sound)
         {
@@ -44,12 +41,8 @@ namespace SoundManager
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
-        
-        
     }
 }

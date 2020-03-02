@@ -8,7 +8,7 @@ namespace SoundManager
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SoundManager.PlaySound(SoundManager.Sound.moving);
+                SoundManager.PlaySound(SoundManager.Sound.moving, transform.position);
             }
         }
     }
