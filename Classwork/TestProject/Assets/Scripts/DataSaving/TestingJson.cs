@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using Path = Pathfinding.AStar.New.Path;
 
 namespace DataSaving
 {
@@ -36,7 +37,7 @@ namespace DataSaving
             person = JsonUtility.FromJson<SavingJson>(json);
             Debug.Log(json);
             
-            File.WriteAllText(Path.Combine(Application.persistentDataPath, "Person"), json);
+            //File.WriteAllText(Path.Combine(Application.persistentDataPath, "Person"), json);
         }
 
     }
