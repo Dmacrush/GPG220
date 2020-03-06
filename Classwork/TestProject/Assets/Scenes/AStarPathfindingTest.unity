@@ -618,7 +618,7 @@ MonoBehaviour:
     m_Bits: 1024
   gridWorldSize: {x: 50, y: 50}
   nodeRadius: 0.5
-  blurPenaltyMultiplier: 3
+  blurPenaltyMultiplier: 2
   walkableRegions:
   - terrainMask:
       serializedVersion: 2
@@ -1224,6 +1224,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1884078831}
+  speed: 20
+  turnSpeed: 3
+  turnDst: 5
+  stoppingDst: 5
 --- !u!1 &963452788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,7 +1866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884078827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.9, y: 1, z: -4.21}
+  m_LocalPosition: {x: -20.13, y: 1, z: -21.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

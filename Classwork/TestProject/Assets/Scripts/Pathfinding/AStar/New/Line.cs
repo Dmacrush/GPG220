@@ -48,13 +48,20 @@ namespace Pathfinding.AStar.New
 
         bool GetSide(Vector2 p)
         {
-            return (p.x = pointOnLine1.x) * (pointOnLine2.y - pointOnLine1.y) >
-                   (p.y - pointOnLine1.y) * (pointOnLine2.x - pointOnLine1.x);
+            return (p.x - pointOnLine1.x) * (pointOnLine2.y - pointOnLine1.y) > (p.y - pointOnLine1.y) * (pointOnLine2.x - pointOnLine1.x);
         }
 
         public bool HasCrossLine(Vector2 p)
         {
             return GetSide(p) != approachSide;
+        }
+
+        public float DistanceFromPoint(Vector2 p)
+        {
+            float yInterceptPerpendicular = p.y - gradientPerpendicular * p.x;
+            float intersectX = (yInterceptPerpendicular - yIntercept) / (gradient - gradientPerpendicular);
+            float intersectY = gradient * intersectX + yIntercept;
+            return Vector2.Distance(p, new Vector2(intersectX, intersectY));
         }
 
         public void DrawWithGizmos(float length)
