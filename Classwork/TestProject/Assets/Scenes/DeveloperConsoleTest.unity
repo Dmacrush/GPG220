@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.6862745}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -550,6 +550,8 @@ MonoBehaviour:
   commands:
   - {fileID: 11400000, guid: 37158a5ff4e7037449626bd7a78663db, type: 2}
   - {fileID: 11400000, guid: 1d36d9fedfd5abf4885f7a6768a9cf3d, type: 2}
+  - {fileID: 11400000, guid: 25eb6784b9e21b64391eab026b705df7, type: 2}
+  - {fileID: 11400000, guid: 91c024d8f847ada4187c760fa374ec74, type: 2}
   uICanvas: {fileID: 814449499}
   inputField: {fileID: 1173967648}
 --- !u!4 &1033334776
@@ -738,7 +740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -928,7 +930,7 @@ GameObject:
   - component: {fileID: 1471684100}
   - component: {fileID: 1471684099}
   - component: {fileID: 1471684103}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,6 +1037,7 @@ GameObject:
   - component: {fileID: 1591600945}
   - component: {fileID: 1591600944}
   - component: {fileID: 1591600943}
+  - component: {fileID: 1591600946}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1107,6 +1110,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1591600946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591600942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921dc0face6dd514e95037d7645a8c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1591600944}
+  testMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &1729101378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1293,7 @@ GameObject:
   - component: {fileID: 1957765194}
   - component: {fileID: 1957765193}
   - component: {fileID: 1957765192}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

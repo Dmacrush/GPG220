@@ -13,8 +13,10 @@ namespace DevConsoleTest
         [SerializeField] private GameObject uICanvas = null;
         [SerializeField] private TMP_InputField inputField = null;
 
+        public Camera camera;
+
         private float pausedTimeScale;
-        private static DeveloperConsoleBehaviour instance;
+        public static DeveloperConsoleBehaviour instance;
 
         private DeveloperConsole developerConsole;
 
@@ -42,6 +44,7 @@ namespace DevConsoleTest
             instance = this;
             
             DontDestroyOnLoad(gameObject);
+            camera = FindObjectOfType<Camera>();
         }
         public void Toggle(CallbackContext context)
         {
@@ -70,6 +73,22 @@ namespace DevConsoleTest
             DeveloperConsole.ProcessCommand(inputValue);
 
             inputField.text = string.Empty;
+        }
+        
+        //to test for raycast while in console
+        public RaycastHit ShootRaycast(LayerMask toDestroy)
+        {
+
+            RaycastHit hitInfo;
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, toDestroy))
+            {
+                Debug.Log(hitInfo.collider.name);
+                return hitInfo;
+            }
+        
+        
+            return hitInfo;
         }
     }
 }

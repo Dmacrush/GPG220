@@ -14,6 +14,7 @@ namespace DevConsoleTest.Command_Scripts
                 return false;
             }
 
+            //check for a float and pass out value
             if (!float.TryParse(args[0], out float value))
             {
                 return false;
