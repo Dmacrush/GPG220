@@ -24,5 +24,7 @@ namespace FieldOfView
                 Handles.DrawLine(fov.transform.position, visibleTarget.position);
             }
         }
+        
+        
     }
 }

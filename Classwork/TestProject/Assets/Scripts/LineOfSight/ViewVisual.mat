@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ground
-  m_Shader: {fileID: 4800000, guid: 64e20e735b93e4142ab4e074c6104d9e, type: 3}
+  m_Name: ViewVisual
+  m_Shader: {fileID: 4800000, guid: 4f861ea59dc18bd4ab1d74986e9f3709, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -73,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.50980395}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
