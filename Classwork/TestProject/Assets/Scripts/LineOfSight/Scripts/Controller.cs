@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LineOfSight.Scripts
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Controller : MonoBehaviour
     {
         public float moveSpeed = 6;

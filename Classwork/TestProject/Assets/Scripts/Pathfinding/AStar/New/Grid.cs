@@ -22,9 +22,14 @@ namespace Pathfinding.AStar.New
         private float nodeDiameter;
         private int gridSizeX, gridSizeY;
 
-        
         private void Awake()
         {
+            InitializeWorld();
+        }
+
+        public void InitializeWorld()
+        {
+            walkableRegionsDictionary.Clear();
             nodeDiameter = nodeRadius * 2;
             gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
             gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);

@@ -67,6 +67,8 @@ namespace Pathfinding.Boids
                 {
                     move = move.normalized * maxSpeed;
                 }
+                //comment the below vector if you want flock to move up and down as well
+                move = new Vector3(move.x, transform.position.y,move.z);
                 agent.Move(move);
             }
         }
