@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SavingJson.unity
-    guid: b331c4ca76bba02468460f16115f9370
+    path: Assets/Scenes/LoadingScreen.unity
+    guid: b2dd321ddd426144c803077b84826907
+  - enabled: 1
+    path: Assets/Scenes/ExampleTitleScreen.unity
+    guid: 6d35ca0337be46146bd6c57f8695209e
+  - enabled: 1
+    path: Assets/Scenes/AStarPathfindingTest.unity
+    guid: 7973245964281174b992ee078913afce
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dbbbed9cd5f94b74cb12eefd3087bddd,
       type: 2}

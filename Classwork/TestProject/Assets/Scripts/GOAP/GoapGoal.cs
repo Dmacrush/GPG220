@@ -8,7 +8,7 @@ namespace GOAP
         protected override void Awake()
         {
             base.Awake();
-            goal.Set("myRequirement", 1);
+            goal.Set("AtTargetPositon", true);
         }
     }
 }

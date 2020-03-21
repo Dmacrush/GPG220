@@ -13,11 +13,19 @@ namespace GOAP
         protected override void Awake()
         {
             base.Awake();
+            
             preconditions.Set("myPrecondition", target.position != transform.position );
             effects.Set("myEffects", transform.position = target.position);
         }
 
-        
+        private object MoveTowardsTarget()
+        {
+            float step =  speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            return transform.position;
+        }
+
+
         public override void Run(IReGoapAction<string, object> previous, IReGoapAction<string, object> next, ReGoapState<string, object> settings, ReGoapState<string, object> goalState, Action<IReGoapAction<string, object>> done,
             Action<IReGoapAction<string, object>> fail)
         {
@@ -25,8 +33,7 @@ namespace GOAP
             // do your own game logic here
             
             Debug.Log("Hi");
-            float step =  speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.position,step);
+            
             
             
             // when done, in this function or outside this function, call the done or fail callback, automatically saved to doneCallback and failCallback by ReGoapAction
